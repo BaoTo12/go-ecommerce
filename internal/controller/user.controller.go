@@ -1,9 +1,8 @@
 package controller
 
 import (
-	"net/http"
-
 	"github.com/BaoTo12/go-ecommerce/internal/service"
+	"github.com/BaoTo12/go-ecommerce/pkg/response"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,7 +18,5 @@ func NewUserController() *UserController {
 
 // controller --> service --> repo --> models --> dbs
 func (uc *UserController) GetUserById(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, gin.H{
-		"message": uc.userService.GetUserInformation(),
-	})
+	response.SuccessResponse(ctx, 20001, uc.userService.GetUserInformation())
 }
