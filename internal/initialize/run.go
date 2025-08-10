@@ -9,8 +9,9 @@ import (
 func Run() {
 	// load config first
 	LoadConfig()
-	fmt.Println("Loading configuration ", global.Config.MYSQL)
+	fmt.Println("Loading configuration ", global.Config.LOGGER)
 	InitLogger()
+	global.Logger.Info("Logger is ok!!")
 	InitMysql()
 	InitRedis()
 	r := InitRouter()
