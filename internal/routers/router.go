@@ -7,11 +7,16 @@ import (
 
 func NewRouter() *gin.Engine {
 	r := gin.Default() // gin.Default() is used to create default instance of gin instance
+
+	pongController := c.NewPongController()
+	HelloWorldController := c.NewHelloWorldController()
+	userController := c.NewUserController()
+
 	v1 := r.Group("/v1/api")
 	{
-		v1.GET("/ping", c.NewPongController().Ping)
-		v1.GET("/hello/:name", c.NewHelloWorldController().HelloWorld)
-		v1.GET("/user", c.NewUserController().GetUserById)
+		v1.GET("/ping", pongController.Ping)
+		v1.GET("/hello/:name", HelloWorldController.HelloWorld)
+		v1.GET("/user", userController.GetUserById)
 	}
 	return r
 }
