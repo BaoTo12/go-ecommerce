@@ -17,3 +17,10 @@ log:
   maxBackup: 2
   maxAge: 30
   compress: true
+
+redis:
+  host: "localhost"
+  port: 6379
+  database: 0
+  password: ""
+  poolSize: 10
