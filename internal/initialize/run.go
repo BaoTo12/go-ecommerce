@@ -16,5 +16,6 @@ func Run() {
 	InitRedis()
 	r := InitRouter()
 
-	r.Run("127.0.0.1:8002")
+	serverSetting := global.Config.SEVER
+	r.Run(fmt.Sprintf("%s:%v", serverSetting.Host, serverSetting.Port))
 }

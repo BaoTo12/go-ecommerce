@@ -1,44 +1,56 @@
 package initialize
 
 import (
-	"fmt"
+	"net/http"
 
-	c "github.com/BaoTo12/go-ecommerce/internal/controller"
+	"github.com/BaoTo12/go-ecommerce/global"
+	"github.com/BaoTo12/go-ecommerce/internal/routers"
 	"github.com/gin-gonic/gin"
 )
 
-// ! Plain middleware
-func AA(ctx *gin.Context) {
-	fmt.Println("Before --- AA")
-	ctx.Next()
-	fmt.Println("After -- AA")
-}
-func BB(ctx *gin.Context) {
-	fmt.Println("Before --- BB")
-	ctx.Next()
-	fmt.Println("After -- BB")
-}
-func CC(ctx *gin.Context) {
-	fmt.Println("Before --- CC")
-	ctx.Next()
-	fmt.Println("After -- CC")
-}
-
 func InitRouter() *gin.Engine {
-	r := gin.Default() // gin.Default() is used to create default instance of gin instance
+	var r *gin.Engine
+	if global.Config.SEVER.Mode == "dev" {
+		gin.SetMode(gin.DebugMode)
+		gin.ForceConsoleColor()
+		r = gin.Default()
+	} else {
+		gin.SetMode(gin.ReleaseMode)
+		r = gin.New()
+	}
 
-	// TODO: middleware
-	r.Use(AA, BB, CC)
+	// TODO: Middleware hierarchies as docs/router/router.png
+	// r.Use() // Logger
+	// r.Use() // Cross
+	// r.Use() // Limiter
 
-	pongController := c.NewPongController()
-	HelloWorldController := c.NewHelloWorldController()
-	userController := c.NewUserController()
+	// TODO: Mapping router
+	adminRouter := routers.RouterGroupApp.Admin
+	userRouter := routers.RouterGroupApp.User
 
-	v1 := r.Group("/v1/api")
+	mainGroup := r.Group("/v1/api")
 	{
-		v1.GET("/ping", pongController.Ping)
-		v1.GET("/hello/:name", HelloWorldController.HelloWorld)
-		v1.GET("/user", userController.GetUserById)
+		// Test API
+		mainGroup.GET("/ping", func(ctx *gin.Context) {
+			ctx.JSON(http.StatusOK, gin.H{
+				"Message": "Pong Successfully",
+			})
+		})
+		mainGroup.GET("/check-status", func(ctx *gin.Context) {
+			ctx.JSON(http.StatusOK, gin.H{
+				"Check Status": "Check Status Successfully",
+			})
+		})
+	}
+	// TODO: User mapping
+	{
+		userRouter.InitUserRouter(mainGroup)
+		userRouter.InitProductRouter(mainGroup)
+	}
+	// TODO: Admin mapping
+	{
+		adminRouter.InitUserRouter(mainGroup)
+		adminRouter.InitAdminRouter(mainGroup)
 	}
 	return r
 }

@@ -8,3 +8,15 @@
 {"level":"\u001b[34mINFO\u001b[0m","Time":"2025-08-11T13:46:50.017+0700","caller":"initialize/run.go:14","msg":"Logger is ok!!"}
 {"level":"\u001b[34mINFO\u001b[0m","Time":"2025-08-11T13:46:50.031+0700","caller":"initialize/mysql.go:29","msg":"Initializing Mysql Successfully"}
 {"level":"\u001b[34mINFO\u001b[0m","Time":"2025-08-11T13:46:50.251+0700","caller":"initialize/redis.go:70","msg":"value score is::","score":"100"}
+{"level":"\u001b[34mINFO\u001b[0m","Time":"2025-08-11T14:27:19.317+0700","caller":"initialize/run.go:14","msg":"Logger is ok!!"}
+{"level":"\u001b[34mINFO\u001b[0m","Time":"2025-08-11T14:27:19.339+0700","caller":"initialize/mysql.go:29","msg":"Initializing Mysql Successfully"}
+{"level":"\u001b[34mINFO\u001b[0m","Time":"2025-08-11T14:29:11.836+0700","caller":"initialize/run.go:14","msg":"Logger is ok!!"}
+{"level":"\u001b[34mINFO\u001b[0m","Time":"2025-08-11T14:29:11.841+0700","caller":"initialize/mysql.go:29","msg":"Initializing Mysql Successfully"}
+{"level":"\u001b[34mINFO\u001b[0m","Time":"2025-08-11T14:30:42.622+0700","caller":"initialize/run.go:14","msg":"Logger is ok!!"}
+{"level":"\u001b[34mINFO\u001b[0m","Time":"2025-08-11T14:30:42.629+0700","caller":"initialize/mysql.go:29","msg":"Initializing Mysql Successfully"}
+{"level":"\u001b[34mINFO\u001b[0m","Time":"2025-08-11T14:30:48.327+0700","caller":"initialize/run.go:14","msg":"Logger is ok!!"}
+{"level":"\u001b[34mINFO\u001b[0m","Time":"2025-08-11T14:30:48.333+0700","caller":"initialize/mysql.go:29","msg":"Initializing Mysql Successfully"}
+{"level":"info","Time":"2025-08-11T14:39:01.901+0700","caller":"initialize/run.go:14","msg":"Logger is ok!!"}
+{"level":"info","Time":"2025-08-11T14:39:01.907+0700","caller":"initialize/mysql.go:29","msg":"Initializing Mysql Successfully"}
+{"level":"info","Time":"2025-08-11T14:46:28.381+0700","caller":"initialize/run.go:14","msg":"Logger is ok!!"}
+{"level":"info","Time":"2025-08-11T14:46:28.392+0700","caller":"initialize/mysql.go:29","msg":"Initializing Mysql Successfully"}
