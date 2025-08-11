@@ -5,3 +5,6 @@
 {"level":"\u001b[34mINFO\u001b[0m","Time":"2025-08-11T11:34:26.076+0700","caller":"initialize/mysql.go:29","msg":"Initializing Mysql Successfully"}
 {"level":"\u001b[34mINFO\u001b[0m","Time":"2025-08-11T13:42:57.653+0700","caller":"initialize/run.go:14","msg":"Logger is ok!!"}
 {"level":"\u001b[34mINFO\u001b[0m","Time":"2025-08-11T13:42:57.685+0700","caller":"initialize/mysql.go:29","msg":"Initializing Mysql Successfully"}
+{"level":"\u001b[34mINFO\u001b[0m","Time":"2025-08-11T13:46:50.017+0700","caller":"initialize/run.go:14","msg":"Logger is ok!!"}
+{"level":"\u001b[34mINFO\u001b[0m","Time":"2025-08-11T13:46:50.031+0700","caller":"initialize/mysql.go:29","msg":"Initializing Mysql Successfully"}
+{"level":"\u001b[34mINFO\u001b[0m","Time":"2025-08-11T13:46:50.251+0700","caller":"initialize/redis.go:70","msg":"value score is::","score":"100"}
