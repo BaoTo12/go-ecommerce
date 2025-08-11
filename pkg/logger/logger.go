@@ -28,33 +28,50 @@ func NewLogger(lg *setting.LoggerSetting) *LoggerZap {
 		level = zapcore.InfoLevel
 	}
 
-	outputLog := lumberjack.Logger{
+	fileRotator := lumberjack.Logger{
 		Filename:   lg.LogFileName,
 		MaxSize:    lg.MaxSize, // megabytes
 		MaxBackups: lg.MaxBackup,
 		MaxAge:     lg.MaxAge,   //days
 		Compress:   lg.Compress, // disabled by default
 	}
+	// --- encoders (console colored, file json)
+	consoleEncoder, fileEncoder := getEncoderLog()
 
-	encoder := getEncoderLog()
-	sync := zapcore.NewMultiWriteSyncer(
-		zapcore.AddSync(os.Stderr),
-		zapcore.AddSync(&outputLog),
-	)
-	core := zapcore.NewCore(encoder, sync, level)
+	// --- writers / syncers
+	consoleWriter := zapcore.Lock(os.Stdout)
+	fileWriter := zapcore.AddSync(&fileRotator)
 
-	return &LoggerZap{
-		zap.New(core, zap.AddCaller(), zap.AddStacktrace(zap.ErrorLevel)),
-	}
+	// --- cores
+	consoleCore := zapcore.NewCore(consoleEncoder, consoleWriter, level)
+	fileCore := zapcore.NewCore(fileEncoder, fileWriter, level)
+
+	// combine so each log entry goes to both destinations
+	core := zapcore.NewTee(consoleCore, fileCore)
+
+	logger := zap.New(core, zap.AddCaller(), zap.AddStacktrace(zap.ErrorLevel))
+	return &LoggerZap{logger}
 
 }
 
-func getEncoderLog() zapcore.Encoder {
-	encodeConfig := zap.NewProductionEncoderConfig()
-	encodeConfig.EncodeCaller = zapcore.ShortCallerEncoder
-	encodeConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
-	encodeConfig.EncodeName = zapcore.FullNameEncoder
-	encodeConfig.EncodeTime = zapcore.ISO8601TimeEncoder
-	encodeConfig.TimeKey = "Time"
-	return zapcore.NewJSONEncoder(encodeConfig)
+// getEncoderLog returns two encoders:
+//   - consoleEncoder: human-readable, colored output (for terminal)
+//   - fileEncoder: JSON encoder (for files)
+func getEncoderLog() (zapcore.Encoder, zapcore.Encoder) {
+	// Console encoder: development-style with color for levels
+	consoleEncCfg := zap.NewDevelopmentEncoderConfig()
+	consoleEncCfg.EncodeTime = zapcore.ISO8601TimeEncoder
+	consoleEncCfg.EncodeLevel = zapcore.CapitalColorLevelEncoder // colorized levels
+	consoleEncCfg.EncodeCaller = zapcore.ShortCallerEncoder
+	consoleEncCfg.TimeKey = "Time"
+	consoleEncoder := zapcore.NewConsoleEncoder(consoleEncCfg)
+
+	// File encoder: production-style JSON (no ANSI color codes)
+	fileEncCfg := zap.NewProductionEncoderConfig()
+	fileEncCfg.EncodeTime = zapcore.ISO8601TimeEncoder
+	fileEncCfg.EncodeCaller = zapcore.ShortCallerEncoder
+	fileEncCfg.TimeKey = "Time"
+	fileEncoder := zapcore.NewJSONEncoder(fileEncCfg)
+
+	return consoleEncoder, fileEncoder
 }
