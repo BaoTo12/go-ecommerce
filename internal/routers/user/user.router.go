@@ -1,18 +1,19 @@
 package user
 
 import (
+	"github.com/BaoTo12/go-ecommerce/internal/wire"
 	"github.com/gin-gonic/gin"
 )
 
 type UserRouter struct{}
 
 func (ur *UserRouter) InitUserRouter(router *gin.RouterGroup) {
-	// TODO: Non-dependency version
-
+	// TODO: Initialize controller
+	userController := wire.InitializeController()
 	// ! Public Router
 	userPublicRouter := router.Group("/user")
 	{
-		userPublicRouter.GET("/register")
+		userPublicRouter.GET("/register", userController.Register)
 		userPublicRouter.POST("/otp")
 	}
 	// ! Private Router
