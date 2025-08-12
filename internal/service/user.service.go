@@ -1,17 +1,29 @@
 package service
 
-import "github.com/BaoTo12/go-ecommerce/internal/repo"
+import (
+	"github.com/BaoTo12/go-ecommerce/internal/repo"
+	"github.com/BaoTo12/go-ecommerce/pkg/response"
+)
 
-type UserService struct {
-	UserRepository *repo.UserRepository
+type IUserService interface {
+	Register(email string, purpose string) int
 }
 
-func NewUserService() *UserService {
-	return &UserService{
-		UserRepository: repo.NewUserRepository(),
+type userService struct {
+	userRepo repo.IUserRepository
+}
+
+func NewUserService(userRepo repo.IUserRepository) IUserService {
+	return &userService{
+		userRepo: userRepo,
 	}
 }
 
-func (us *UserService) GetUserInformation() string {
-	return us.UserRepository.GetUserInformation()
+// Register implements IUserService.
+func (us *userService) Register(email string, purpose string) int {
+	// check whether email exists
+	if us.userRepo.GetUserByEmail(email) {
+		return response.ErrUserAlreadyExisted
+	}
+	return response.ErrCodeSuccess
 }

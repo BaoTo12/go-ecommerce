@@ -1,10 +1,14 @@
 package user
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+)
 
 type UserRouter struct{}
 
 func (ur *UserRouter) InitUserRouter(router *gin.RouterGroup) {
+	// TODO: Non-dependency version
+
 	// ! Public Router
 	userPublicRouter := router.Group("/user")
 	{
