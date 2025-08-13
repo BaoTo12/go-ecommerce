@@ -20,3 +20,5 @@
 {"level":"info","Time":"2025-08-11T14:39:01.907+0700","caller":"initialize/mysql.go:29","msg":"Initializing Mysql Successfully"}
 {"level":"info","Time":"2025-08-11T14:46:28.381+0700","caller":"initialize/run.go:14","msg":"Logger is ok!!"}
 {"level":"info","Time":"2025-08-11T14:46:28.392+0700","caller":"initialize/mysql.go:29","msg":"Initializing Mysql Successfully"}
+{"level":"info","Time":"2025-08-13T18:12:44.507+0700","caller":"initialize/run.go:14","msg":"Logger is ok!!"}
+{"level":"info","Time":"2025-08-13T18:12:44.515+0700","caller":"initialize/mysql.go:29","msg":"Initializing Mysql Successfully"}
