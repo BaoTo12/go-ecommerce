@@ -1,0 +1,8 @@
+
+services:
+  go.shopdev:
+    volumes:
+      - ./:/build
+      - /build/bin
+    command: sh -c "cd /build && air"
+    restart: no
