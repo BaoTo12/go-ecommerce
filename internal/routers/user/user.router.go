@@ -13,7 +13,7 @@ func (ur *UserRouter) InitUserRouter(router *gin.RouterGroup) {
 	// ! Public Router
 	userPublicRouter := router.Group("/user")
 	{
-		userPublicRouter.GET("/register", userController.Register)
+		userPublicRouter.POST("/register", userController.Register)
 		userPublicRouter.POST("/otp")
 	}
 	// ! Private Router

@@ -11,6 +11,6 @@ import (
 )
 
 func InitializeController() *controller.UserController {
-	wire.Build(controller.NewUserController, service.NewUserService, repo.NewUserRepository)
+	wire.Build(controller.NewUserController, service.NewUserService, repo.NewUserRepository, repo.NewUSerAuthenticationRepository)
 	return &controller.UserController{}
 }

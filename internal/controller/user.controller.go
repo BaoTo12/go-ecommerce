@@ -1,7 +1,10 @@
 package controller
 
 import (
+	"fmt"
+
 	"github.com/BaoTo12/go-ecommerce/internal/service"
+	"github.com/BaoTo12/go-ecommerce/internal/vo"
 	"github.com/BaoTo12/go-ecommerce/pkg/response"
 	"github.com/gin-gonic/gin"
 )
@@ -17,7 +20,14 @@ func NewUserController(userService service.IUserService) *UserController {
 }
 
 // controller --> service --> repo --> models --> dbs
-func (uc *UserController) Register(ctx *gin.Context) {
-	result := uc.userService.Register("", "")
-	response.SuccessResponse(ctx, result, nil)
+func (uc *UserController) Register(c *gin.Context) {
+	ctx := c.Request.Context()
+	var bodyRequest vo.UserRegistrationRequest
+	if err := c.ShouldBindJSON(&bodyRequest); err != nil {
+		fmt.Println(err)
+		response.FailureResponse(c, response.ErrCodeParamInvalid)
+		return
+	}
+	result := uc.userService.Register(ctx, bodyRequest.Email, bodyRequest.Purpose)
+	response.SuccessResponse(c, result, nil)
 }
