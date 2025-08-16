@@ -13,8 +13,6 @@ import (
 	"go.uber.org/zap"
 )
 
-var ctx = context.Background() // Background returns a non-nil, empty Context. It is never canceled, has no values, and has no deadline.
-
 // TODO: The context package defines an interface that centralizes control and metadata for goroutines and function calls. Its key traits include:
 
 // Cancellation: Signal work to stop gracefully.
@@ -103,18 +101,19 @@ func InitRedis() {
 
 	// redisExample()
 }
-func redisExample() {
-	err := global.Rdb.Set(ctx, "score", 100, 0).Err()
-	if err != nil {
-		fmt.Println("Error redis setting:", zap.Error(err))
-		return
-	}
 
-	value, err := global.Rdb.Get(ctx, "score").Result()
-	if err != nil {
-		fmt.Println("Error redis setting:", zap.Error(err))
-		return
-	}
+// func redisExample() {
+// 	err := global.Rdb.Set(ctx, "score", 100, 0).Err()
+// 	if err != nil {
+// 		fmt.Println("Error redis setting:", zap.Error(err))
+// 		return
+// 	}
 
-	global.Logger.Info("value score is::", zap.String("score", value))
-}
+// 	value, err := global.Rdb.Get(ctx, "score").Result()
+// 	if err != nil {
+// 		fmt.Println("Error redis setting:", zap.Error(err))
+// 		return
+// 	}
+
+// 	global.Logger.Info("value score is::", zap.String("score", value))
+// }
