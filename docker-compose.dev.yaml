@@ -1,8 +1,13 @@
 
 services:
   go.shopdev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     volumes:
-      - ./:/build
-      - /build/bin
-    command: sh -c "cd /build && air"
+      - ./:/app
+      - go_modules_cache:/go/pkg/mod
+    entrypoint: ["air", "-c", ".air.toml"]
     restart: no
+volumes:
+  go_modules_cache:

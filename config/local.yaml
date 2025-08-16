@@ -21,7 +21,7 @@ log:
   compress: true
 
 redis:
-  host: reids_container
+  host: redis_container
   port: 6379
   database: 0
   password: ""

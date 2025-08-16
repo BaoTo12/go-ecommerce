@@ -33,7 +33,7 @@ func InitRouter() *gin.Engine {
 		// Test API
 		mainGroup.GET("/ping", func(ctx *gin.Context) {
 			ctx.JSON(http.StatusOK, gin.H{
-				"Message": "Pong Successfully",
+				"Message": "Pong Successfully ",
 			})
 		})
 		mainGroup.GET("/check-status", func(ctx *gin.Context) {

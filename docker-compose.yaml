@@ -27,7 +27,7 @@ services:
       - ./init:/docker-entrypoint-initdb.d
   redis:
     image: redis:7.0
-    container_name: reids_container
+    container_name: redis_container
     ports:
       - "6381:6379"
     volumes:
