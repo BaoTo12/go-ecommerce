@@ -1,22 +1,30 @@
 package repo
 
 import (
+	"context"
+
 	"github.com/BaoTo12/go-ecommerce/global"
-	"github.com/BaoTo12/go-ecommerce/internal/model"
+	"github.com/BaoTo12/go-ecommerce/internal/database"
 )
 
 type IUserRepository interface {
-	GetUserByEmail(email string) bool
+	GetUserByEmail(ctx context.Context, email string) bool
 }
 
 type userRepository struct {
+	sqlc *database.Queries
 }
 
-func (*userRepository) GetUserByEmail(email string) bool {
-	row := global.Mdb.Table(TableNameGoCrmUser).Where("usr_email = ?", email).First(&model.GoCrmUser{}).RowsAffected
-	return row != NumberNull
+func (ur *userRepository) GetUserByEmail(ctx context.Context, email string) bool {
+	result, err := ur.sqlc.GetUserByEmail(ctx, email)
+	if err != nil {
+		return false
+	}
+	return result.UsrID != 0
 }
 
 func NewUserRepository() IUserRepository {
-	return &userRepository{}
+	return &userRepository{
+		sqlc: database.New(global.Mdbc),
+	}
 }

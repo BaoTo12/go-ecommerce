@@ -12,7 +12,8 @@ func Run() {
 	fmt.Println("Loading configuration ", global.Config.LOGGER)
 	InitLogger()
 	global.Logger.Info("Logger is ok!!")
-	InitMysql()
+	// InitMysql()
+	InitMysqlCompile()
 	InitRedis()
 	r := InitRouter()
 
