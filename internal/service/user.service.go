@@ -36,7 +36,7 @@ func (us *userService) Register(ctx context.Context, email string, purpose strin
 	hashedEmail := crypto.HashEmail(email)
 	fmt.Printf("Hashed Email::%s \n", hashedEmail)
 	// 1. check whether email exists
-	if us.userRepo.GetUserByEmail(email) {
+	if us.userRepo.GetUserByEmail(ctx, email) {
 		return response.ErrUserAlreadyExisted
 	}
 	// 2. Send new OTP
